@@ -1,7 +1,9 @@
 #+TITLE: Elixir Workshop
 #+OPTIONS: num:nil toc:nil timestamp:nil
+#+REVEAL_TRANS: zoom
+#+REVEAL_THEME: blood
 
-* What is Elixir
+* What is Elixir?
 [[https://screenshots-dx37.s3.amazonaws.com/elixir-vertical.png_800600_2016-11-29_10-41-25.png]]
 
   "Elixir is a dynamic, functional language designed for building scalable and
@@ -38,7 +40,7 @@
 #+ATTR_REVEAL: :frag (appear)
    - ~.ex~ -> ~.beam~
    - ~.exs~ script
-* Elixir Projects
+* What have we done with it?
 ** Curadora
 [[https://screenshots-dx37.s3.amazonaws.com/Concert_Festival_and_Event_Hotel_Booking_-_Curadora_2016-11-29_10-33-25.png]]
 ** Linked Learning
@@ -78,6 +80,7 @@ mix new elixir_workshop
     - Configuration tool
     - Code generator
 ** Run a script
+
 #+ATTR_REVEAL: :frag (appear)
    - Put ~IO.puts "Hello world!"~ in a file called ~hello.exs~
    - ~mix run hello.exs~
