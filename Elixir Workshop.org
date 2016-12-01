@@ -1,0 +1,243 @@
+#+TITLE: Elixir Workshop
+#+OPTIONS: num:nil toc:nil timestamp:nil
+
+* What is Elixir
+[[https://screenshots-dx37.s3.amazonaws.com/elixir-vertical.png_800600_2016-11-29_10-41-25.png]]
+
+  "Elixir is a dynamic, functional language designed for building scalable and
+  maintainable applications."
+  Originally written by Jose Valim from the Rails core team.
+#+BEGIN_NOTES
+  Enter speaker notes here.
+#+END_NOTES
+** Dynamic
+#+ATTR_REVEAL: :frag (appear)
+   - Dynamic typing like Ruby
+   - Dialyzer to check types
+** Functional
+#+ATTR_REVEAL: :frag (appear)
+   - Immutability
+   - Not pure
+   - Recursion
+** Scalable
+#+ATTR_REVEAL: :frag (appear)
+   - Great performance characteristics
+   - Easy to use all cores
+** Maintainable
+#+ATTR_REVEAL: :frag (appear)
+   - Powerful constructs for application organization
+     - OTP - Open Telecom Platform
+     - Umbrella applications
+   - Supervision Trees
+   - Macros
+** Runs on Erlang VM
+#+ATTR_REVEAL: :frag (appear)
+   - Erlang first appeared 30 years ago in 1986
+   - Very stable
+** Compiled
+#+ATTR_REVEAL: :frag (appear)
+   - ~.ex~ -> ~.beam~
+   - ~.exs~ script
+* Elixir Projects
+** Curadora
+[[https://screenshots-dx37.s3.amazonaws.com/Concert_Festival_and_Event_Hotel_Booking_-_Curadora_2016-11-29_10-33-25.png]]
+** Linked Learning
+[[https://screenshots-dx37.s3.amazonaws.com/Zeplin_2016-11-29_10-38-09.png]]
+** Smart Ready To
+[[https://screenshots-dx37.s3.amazonaws.com/Slack_-_Substantial_2016-11-29_10-39-37.png]]
+* Why do we like it?
+  - Similar joy to Ruby
+  - Good and growing ecosystem
+  - Functional programming is all the rage
+* Will it stick around?
+#+ATTR_REVEAL: :frag (appear)
+   - Jose Valim is more or less full-time on Elixir
+   - Lots of Ruby people coming over
+   - Thoughtbot has bet on it and is writing OSS for it
+   - Last Elixir and Phoenix conf had over 500 attendees
+* Write some Elixir
+** iex
+*** Hello World
+#+begin_src elixir
+IO.puts "Hello world!"
+#+end_src
+*** What was that?
+    - Module
+    - Function
+    - Arguments
+** Mix
+*** Create a new app
+
+#+begin_src shell
+mix new elixir_workshop
+#+end_src
+*** What is mix?
+#+ATTR_REVEAL: :frag (appear)
+    - Dependency bundler
+    - Task runner
+    - Configuration tool
+    - Code generator
+** Run a script
+#+ATTR_REVEAL: :frag (appear)
+   - Put ~IO.puts "Hello world!"~ in a file called ~hello.exs~
+   - ~mix run hello.exs~
+** Module and function
+#+begin_src elixir
+defmodule Hello do
+  def hello(name) do
+    IO.puts "Hello #{name}!"
+  end
+end
+
+Hello.hello("Aaron")
+#+end_src
+
+** Pattern matching
+*** Examples
+#+begin_src elixir
+[x, y] = ["foo", "bar"]
+x #=> "foo"
+y #=> "bar"
+
+[head | tail] = [0, 1, 2, 3]
+head #=> 0
+tail #=> [1, 2, 3]
+
+{:ok, result} = {:ok, 34}
+result #=> 34
+
+f = fn ([head | _]) -> head end
+f.([0, 1, 2, 3]) #=> 0
+#+end_src
+
+*** Try
+#+begin_src elixir
+defmodule Hello do
+  def hello("HAL") do
+    IO.puts "Hello, HAL. Do you read me, HAL?"
+  end
+
+  def hello(name) do
+    IO.puts "Hello #{name}!"
+  end
+end
+
+Hello.hello("Aaron")
+Hello.hello("HAL")
+#+end_src
+
+** Recursion
+*** Examples
+#+begin_src elixir
+defmodule Recurse do
+  def increment_all([]), do: []
+  def increment_all([number | rest]) do
+    [number + 1 | increment_all(rest)]
+  end
+end
+#+end_src
+
+*** Try
+#+begin_src elixir
+defmodule Hello do
+  def hello("HAL") do
+    IO.puts "Hello, HAL. Do you read me, HAL?"
+  end
+
+  def hello([]), do: nil
+  def hello([name | rest]) do
+    hello(name)
+    hello(rest)
+  end
+
+  def hello(name) do
+    IO.puts "Hello #{name}!"
+  end
+end
+
+Hello.hello(["Jenny", "Aaron", "HAL"])
+#+end_src
+
+** Function pipelines
+*** Examples
+#+begin_src elixir
+[0, 1, 2] |> Enum.reverse |> Recurse.increment_all #=> [3, 2, 1]
+#+end_src
+
+*** Try
+#+begin_src elixir
+defmodule Hello do
+  def hello(names) do
+    sorted_names = Enum.sort(names)
+
+    sorted_names
+    |> Enum.map(fn (name) -> String.upcase(name) end)
+    |> Enum.each(&say_hello/1)
+  end
+
+  def say_hello("HAL") do
+    IO.puts "Hello, HAL. Do you read me, HAL?"
+  end
+
+  def say_hello(name) do
+    IO.puts "Hello #{name}!"
+  end
+end
+
+Hello.hello(["Jenny", "Aaron", "HAL"])
+#+end_src
+** Guards
+*** Examples
+#+begin_src elixir
+defmodule Discern do
+  def what(list) when is_list(list), do: "list"
+  def what(list), do: "not a list"
+end
+
+Discern.what([1, 2]) #=> "list"
+Discern.what(:not_a_list) #=> "not a list"
+#+end_src
+
+*** Try
+
+#+begin_src elixir
+defmodule Hello do
+  def hello(names) when is_list(names) do
+    names
+    |> Enum.sort
+    |> Enum.map(fn (name) -> String.upcase(name) end)
+    |> Enum.each(&say_hello/1)
+  end
+
+  def hello(name), do: say_hello(name)
+
+  def say_hello("HAL") do
+    IO.puts "Hello, HAL. Do you read me, HAL?"
+  end
+
+  def say_hello(name) do
+    IO.puts "Hello #{name}!"
+  end
+end
+
+Hello.hello(["Jenny", "Aaron", "HAL"])
+Hello.hello("Barney")
+#+end_src
+
+** Pair and Try
+  Implement ~hello_list~ which takes a list of names and joins them with commas
+  and an "and": "Hello Aaron, HAL, and Jenny!"
+
+  Docs: https://hexdocs.pm/elixir/Kernel.html
+  - Ask Elixir peeps for help
+  - Don't forget to use double quotes for strings: ""
+* OTP
+#+ATTR_REVEAL: :frag (appear)
+  - "True" object-oriented programming
+  - Each process can have its own state
+  - Communicate via messaging
+  - Supervision trees
+* Learn More
+  - Books
+    - [[https://pragprog.com/book/elixir13/programming-elixir-1-3][Programming Elixir]]
+    - [[http://elixir-lang.org/getting-started/introduction.html][Elixir Guides]]

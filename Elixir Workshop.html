@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Elixir Workshop</title>
+<meta name="author" content="(Aaron Jensen)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Elixir Workshop</h1><h2 class="author">Aaron Jensen</h2>
+</section>
+
+<section>
+<section id="slide-orgd0be231">
+<h2 id="orgd0be231">What is Elixir</h2>
+
+<div class="figure">
+<p><img src="https://screenshots-dx37.s3.amazonaws.com/elixir-vertical.png_800600_2016-11-29_10-41-25.png" alt="elixir-vertical.png_800600_2016-11-29_10-41-25.png" />
+</p>
+</div>
+
+<p>
+"Elixir is a dynamic, functional language designed for building scalable and
+maintainable applications."
+Originally written by Jose Valim from the Rails core team.
+</p>
+<aside class="notes">
+<p>
+Enter speaker notes here.
+</p>
+
+</aside>
+</section>
+<section id="slide-org734f38f">
+<h3 id="org734f38f">Dynamic</h3>
+<ul>
+<li class="fragment appear">Dynamic typing like Ruby</li>
+<li class="fragment appear">Dialyzer to check types</li>
+
+</ul>
+</section>
+<section id="slide-orgd0dd2eb">
+<h3 id="orgd0dd2eb">Functional</h3>
+<ul>
+<li class="fragment appear">Immutability</li>
+<li class="fragment appear">Not pure</li>
+<li class="fragment appear">Recursion</li>
+
+</ul>
+</section>
+<section id="slide-org2df17b5">
+<h3 id="org2df17b5">Scalable</h3>
+<ul>
+<li class="fragment appear">Great performance characteristics</li>
+<li class="fragment appear">Easy to use all cores</li>
+
+</ul>
+</section>
+<section id="slide-org569b4e5">
+<h3 id="org569b4e5">Maintainable</h3>
+<ul>
+<li class="fragment appear">Powerful constructs for application organization
+<ul>
+<li>OTP - Open Telecom Platform</li>
+<li>Umbrella applications</li>
+
+</ul></li>
+<li class="fragment appear">Supervision Trees</li>
+<li class="fragment appear">Macros</li>
+
+</ul>
+</section>
+<section id="slide-org9cd4afa">
+<h3 id="org9cd4afa">Runs on Erlang VM</h3>
+<ul>
+<li class="fragment appear">Erlang first appeared 30 years ago in 1986</li>
+<li class="fragment appear">Very stable</li>
+
+</ul>
+</section>
+<section id="slide-org523bfc0">
+<h3 id="org523bfc0">Compiled</h3>
+<ul>
+<li class="fragment appear"><code>.ex</code> -&gt; <code>.beam</code></li>
+<li class="fragment appear"><code>.exs</code> script</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org7ea3362">
+<h2 id="org7ea3362">Elixir Projects</h2>
+<div class="outline-text-2" id="text-org7ea3362">
+</div></section>
+<section id="slide-org2741bd6">
+<h3 id="org2741bd6">Curadora</h3>
+
+<div class="figure">
+<p><img src="https://screenshots-dx37.s3.amazonaws.com/Concert_Festival_and_Event_Hotel_Booking_-_Curadora_2016-11-29_10-33-25.png" alt="Concert_Festival_and_Event_Hotel_Booking_-_Curadora_2016-11-29_10-33-25.png" />
+</p>
+</div>
+</section>
+<section id="slide-org4e57545">
+<h3 id="org4e57545">Linked Learning</h3>
+
+<div class="figure">
+<p><img src="https://screenshots-dx37.s3.amazonaws.com/Zeplin_2016-11-29_10-38-09.png" alt="Zeplin_2016-11-29_10-38-09.png" />
+</p>
+</div>
+</section>
+<section id="slide-org648bb82">
+<h3 id="org648bb82">Smart Ready To</h3>
+
+<div class="figure">
+<p><img src="https://screenshots-dx37.s3.amazonaws.com/Slack_-_Substantial_2016-11-29_10-39-37.png" alt="Slack_-_Substantial_2016-11-29_10-39-37.png" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org7f5386d">
+<h2 id="org7f5386d">Why do we like it?</h2>
+<ul>
+<li>Similar joy to Ruby</li>
+<li>Good and growing ecosystem</li>
+<li>Functional programming is all the rage</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org03d29bc">
+<h2 id="org03d29bc">Will it stick around?</h2>
+<ul>
+<li class="fragment appear">Jose Valim is more or less full-time on Elixir</li>
+<li class="fragment appear">Lots of Ruby people coming over</li>
+<li class="fragment appear">Thoughtbot has bet on it and is writing OSS for it</li>
+<li class="fragment appear">Last Elixir and Phoenix conf had over 500 attendees</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgd154593">
+<h2 id="orgd154593">Write some Elixir</h2>
+<div class="outline-text-2" id="text-orgd154593">
+</div></section>
+<section id="slide-org6739d60">
+<h3 id="org6739d60">iex</h3>
+<div class="outline-text-3" id="text-org6739d60">
+</div></section>
+<section id="slide-org2a7ce25">
+<h4 id="org2a7ce25">Hello World</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello world!"</span>
+</pre>
+</div>
+</section>
+<section id="slide-org589dab4">
+<h4 id="org589dab4">What was that?</h4>
+<ul>
+<li>Module</li>
+<li>Function</li>
+<li>Arguments</li>
+
+</ul>
+</section>
+<section id="slide-org575b541">
+<h3 id="org575b541">Mix</h3>
+<div class="outline-text-3" id="text-org575b541">
+</div></section>
+<section id="slide-orgad556c8">
+<h4 id="orgad556c8">Create a new app</h4>
+<div class="org-src-container">
+
+<pre  class="src src-shell">mix new elixir_workshop
+</pre>
+</div>
+</section>
+<section id="slide-org7f1f515">
+<h4 id="org7f1f515">What is mix?</h4>
+<ul>
+<li class="fragment appear">Dependency bundler</li>
+<li class="fragment appear">Task runner</li>
+<li class="fragment appear">Configuration tool</li>
+<li class="fragment appear">Code generator</li>
+
+</ul>
+</section>
+<section id="slide-org4cef47b">
+<h3 id="org4cef47b">Run a script</h3>
+<ul>
+<li class="fragment appear">Put <code>IO.puts "Hello world!"</code> in a file called <code>hello.exs</code></li>
+<li class="fragment appear"><code>mix run hello.exs</code></li>
+
+</ul>
+</section>
+<section id="slide-org09d797f">
+<h3 id="org09d797f">Module and function</h3>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Hello</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello </span><span style="color: #FD971F;">#{name}</span><span style="color: #E6DB74;">!"</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"Aaron"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org252b214">
+<h3 id="org252b214">Pattern matching</h3>
+<div class="outline-text-3" id="text-org252b214">
+</div></section>
+<section id="slide-org9c24a08">
+<h4 id="org9c24a08">Examples</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #AE81FF;">[</span>x, y<span style="color: #AE81FF;">]</span> = <span style="color: #AE81FF;">[</span><span style="color: #E6DB74;">"foo"</span>, <span style="color: #E6DB74;">"bar"</span><span style="color: #AE81FF;">]</span>
+x <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; "foo"</span>
+y <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; "bar"</span>
+
+<span style="color: #AE81FF;">[</span>head | tail<span style="color: #AE81FF;">]</span> = <span style="color: #AE81FF;">[</span><span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">2</span>, <span style="color: #AE81FF;">3</span><span style="color: #AE81FF;">]</span>
+head <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; 0</span>
+tail <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; [1, 2, 3]</span>
+
+<span style="color: #AE81FF;">{</span><span style="color: #87cefa;">:ok</span>, result<span style="color: #AE81FF;">}</span> = <span style="color: #AE81FF;">{</span><span style="color: #87cefa;">:ok</span>, <span style="color: #AE81FF;">34</span><span style="color: #AE81FF;">}</span>
+result <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; 34</span>
+
+<span style="color: #FD971F;">f</span> = <span style="color: #F92672;">fn</span> <span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span>head | <span style="color: #AE81FF;">_</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span> -&gt; head <span style="color: #F92672;">end</span>
+f.<span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span><span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">2</span>, <span style="color: #AE81FF;">3</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; 0</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orge10d992">
+<h4 id="orge10d992">Try</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Hello</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"HAL"</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello, HAL. Do you read me, HAL?"</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello </span><span style="color: #FD971F;">#{name}</span><span style="color: #E6DB74;">!"</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"Aaron"</span><span style="color: #AE81FF;">)</span>
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"HAL"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org183ce8b">
+<h3 id="org183ce8b">Recursion</h3>
+<div class="outline-text-3" id="text-org183ce8b">
+</div></section>
+<section id="slide-org29f345b">
+<h4 id="org29f345b">Examples</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Recurse</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">increment_all</span><span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[]</span><span style="color: #AE81FF;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #AE81FF;">[]</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">increment_all</span><span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span>number | rest<span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #AE81FF;">[</span>number + <span style="color: #AE81FF;">1</span> | increment_all<span style="color: #66D9EF;">(</span>rest<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">]</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org45f101d">
+<h4 id="org45f101d">Try</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Hello</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"HAL"</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello, HAL. Do you read me, HAL?"</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[]</span><span style="color: #AE81FF;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #87cefa;">nil</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span>name | rest<span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    hello<span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span>
+    hello<span style="color: #AE81FF;">(</span>rest<span style="color: #AE81FF;">)</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello </span><span style="color: #FD971F;">#{name}</span><span style="color: #E6DB74;">!"</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span><span style="color: #E6DB74;">"Jenny"</span>, <span style="color: #E6DB74;">"Aaron"</span>, <span style="color: #E6DB74;">"HAL"</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org72b794b">
+<h3 id="org72b794b">Function pipelines</h3>
+<div class="outline-text-3" id="text-org72b794b">
+</div></section>
+<section id="slide-org5943ea4">
+<h4 id="org5943ea4">Examples</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #AE81FF;">[</span><span style="color: #AE81FF;">0</span>, <span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">2</span><span style="color: #AE81FF;">]</span> |&gt; <span style="color: #66D9EF;">Enum</span>.reverse |&gt; <span style="color: #66D9EF;">Recurse</span>.increment_all <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; [3, 2, 1]</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org418f442">
+<h4 id="org418f442">Try</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Hello</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>names<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #FD971F;">sorted_names</span> = <span style="color: #66D9EF;">Enum</span>.sort<span style="color: #AE81FF;">(</span>names<span style="color: #AE81FF;">)</span>
+
+    sorted_names
+    |&gt; <span style="color: #66D9EF;">Enum</span>.map<span style="color: #AE81FF;">(</span><span style="color: #F92672;">fn</span> <span style="color: #66D9EF;">(</span>name<span style="color: #66D9EF;">)</span> -&gt; <span style="color: #66D9EF;">String</span>.upcase<span style="color: #66D9EF;">(</span>name<span style="color: #66D9EF;">)</span> <span style="color: #F92672;">end</span><span style="color: #AE81FF;">)</span>
+    |&gt; <span style="color: #66D9EF;">Enum</span>.each<span style="color: #AE81FF;">(</span>&amp;say_hello/<span style="color: #AE81FF;">1</span><span style="color: #AE81FF;">)</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">say_hello</span><span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"HAL"</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello, HAL. Do you read me, HAL?"</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">say_hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello </span><span style="color: #FD971F;">#{name}</span><span style="color: #E6DB74;">!"</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span><span style="color: #E6DB74;">"Jenny"</span>, <span style="color: #E6DB74;">"Aaron"</span>, <span style="color: #E6DB74;">"HAL"</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</section>
+<section id="slide-org566f964">
+<h3 id="org566f964">Guards</h3>
+<div class="outline-text-3" id="text-org566f964">
+</div></section>
+<section id="slide-org401a3c1">
+<h4 id="org401a3c1">Examples</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Discern</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">what</span><span style="color: #AE81FF;">(</span>list<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">when</span> is_list<span style="color: #AE81FF;">(</span>list<span style="color: #AE81FF;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #E6DB74;">"list"</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">what</span><span style="color: #AE81FF;">(</span>list<span style="color: #AE81FF;">)</span>, <span style="color: #87cefa;">do:</span> <span style="color: #E6DB74;">"not a list"</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Discern</span>.what<span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span><span style="color: #AE81FF;">1</span>, <span style="color: #AE81FF;">2</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; "list"</span>
+<span style="color: #66D9EF;">Discern</span>.what<span style="color: #AE81FF;">(</span><span style="color: #87cefa;">:not_a_list</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">#</span><span style="color: #75715E; background-color: #272822;">=&gt; "not a list"</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-org92be131">
+<h4 id="org92be131">Try</h4>
+<div class="org-src-container">
+
+<pre  class="src src-elixir"><span style="color: #F92672;">defmodule</span> <span style="color: #66D9EF;">Hello</span> <span style="color: #F92672;">do</span>
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>names<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">when</span> is_list<span style="color: #AE81FF;">(</span>names<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    names
+    |&gt; <span style="color: #66D9EF;">Enum</span>.sort
+    |&gt; <span style="color: #66D9EF;">Enum</span>.map<span style="color: #AE81FF;">(</span><span style="color: #F92672;">fn</span> <span style="color: #66D9EF;">(</span>name<span style="color: #66D9EF;">)</span> -&gt; <span style="color: #66D9EF;">String</span>.upcase<span style="color: #66D9EF;">(</span>name<span style="color: #66D9EF;">)</span> <span style="color: #F92672;">end</span><span style="color: #AE81FF;">)</span>
+    |&gt; <span style="color: #66D9EF;">Enum</span>.each<span style="color: #AE81FF;">(</span>&amp;say_hello/<span style="color: #AE81FF;">1</span><span style="color: #AE81FF;">)</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span>, <span style="color: #87cefa;">do:</span> say_hello<span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">say_hello</span><span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"HAL"</span><span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello, HAL. Do you read me, HAL?"</span>
+  <span style="color: #F92672;">end</span>
+
+  <span style="color: #F92672;">def</span> <span style="color: #A6E22E;">say_hello</span><span style="color: #AE81FF;">(</span>name<span style="color: #AE81FF;">)</span> <span style="color: #F92672;">do</span>
+    <span style="color: #66D9EF;">IO</span>.puts <span style="color: #E6DB74;">"Hello </span><span style="color: #FD971F;">#{name}</span><span style="color: #E6DB74;">!"</span>
+  <span style="color: #F92672;">end</span>
+<span style="color: #F92672;">end</span>
+
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #66D9EF;">[</span><span style="color: #E6DB74;">"Jenny"</span>, <span style="color: #E6DB74;">"Aaron"</span>, <span style="color: #E6DB74;">"HAL"</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span>
+<span style="color: #66D9EF;">Hello</span>.hello<span style="color: #AE81FF;">(</span><span style="color: #E6DB74;">"Barney"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+</section>
+<section id="slide-orgec087f6">
+<h3 id="orgec087f6">Pair and Try</h3>
+<p>
+Implement <code>hello_list</code> which takes a list of names and joins them with commas
+and an "and": "Hello Aaron, HAL, and Jenny!"
+</p>
+
+<p>
+Docs: <a href="https://hexdocs.pm/elixir/Kernel.html">https://hexdocs.pm/elixir/Kernel.html</a>
+</p>
+<ul>
+<li>Ask Elixir peeps for help</li>
+<li>Don't forget to use double quotes for strings: ""</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org4c7e5e9">
+<h2 id="org4c7e5e9">OTP</h2>
+<ul>
+<li class="fragment appear">"True" object-oriented programming</li>
+<li class="fragment appear">Each process can have its own state</li>
+<li class="fragment appear">Communicate via messaging</li>
+<li class="fragment appear">Supervision trees</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org6878ae5">
+<h2 id="org6878ae5">Learn More</h2>
+<ul>
+<li>Books
+<ul>
+<li><a href="https://pragprog.com/book/elixir13/programming-elixir-1-3">Programming Elixir</a></li>
+<li><a href="http://elixir-lang.org/getting-started/introduction.html">Elixir Guides</a></li>
+
+</ul></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
