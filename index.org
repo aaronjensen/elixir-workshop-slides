@@ -254,6 +254,12 @@ Hello.hello("Barney")
   - Each process can have its own state
   - Communicate via messaging
   - Supervision trees
+* Distributed Erlang
+#+ATTR_REVEAL: :frag (appear)
+  - Connect multiple nodes to one another
+  - Can send messages to processes on other nodes
+  - Global process registries to find services on other machines
+  - WARNING: Super insecure, only connect to trusted machines
 * Learn More
   - Books
     - [[https://pragprog.com/book/elixir13/programming-elixir-1-3][Programming Elixir]]
