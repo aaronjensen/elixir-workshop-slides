@@ -1,6 +1,6 @@
 #+TITLE: Elixir Workshop
 #+OPTIONS: num:nil toc:nil timestamp:nil
-#+REVEAL_TRANS: zoom
+#+REVEAL_TRANS: none
 #+REVEAL_THEME: blood
 
 * What is Elixir?
